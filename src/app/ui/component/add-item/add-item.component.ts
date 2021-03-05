@@ -22,7 +22,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<AddItemComponent>,
     private itemService: ItemService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string, item: any }) { }
+    @Inject(MAT_DIALOG_DATA) public data: { id: string }) { }
 
   ngOnInit(): void {
     this.init();

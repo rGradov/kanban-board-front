@@ -69,7 +69,8 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "trello-front-end:build"
+            "browserTarget": "trello-front-end:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

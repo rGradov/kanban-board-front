@@ -5,3 +5,11 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+.mat-dialog-container {
+  background: none;
+  box-shadow: none;
+}
+.cdk-drop-list {
+  min-width: 200px;
+  min-height: 200px;
+}

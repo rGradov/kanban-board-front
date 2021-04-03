@@ -9,7 +9,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddItemComponent } from './component/add-item/add-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { EdditItemComponent } from './modal/eddit-item/eddit-item.component';
+import { AddCommentComponent } from './component/add-comment/add-comment.component';
+import { CommentListComponent } from './component/comment-list/comment-list.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { EditTitleComponent } from './component/edit-title/edit-title.component';
+import { HeaderComponent } from './component/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +25,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ItemComponent,
     TagComponent,
     AddItemComponent,
+    EdditItemComponent,
+    AddCommentComponent,
+    CommentListComponent,
+    EditTitleComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -26,13 +39,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
 
   ],
   exports: [
     ColumComponent,
     ItemComponent,
     TagComponent,
+    HeaderComponent
   ]
 })
 

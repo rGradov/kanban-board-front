@@ -22,9 +22,9 @@ cdkDropList
 (cdkDropListDropped)="drop($event)"
 >
 <!-- ngFOr -->
-  <div *ngFor="let item of items" cdkDrag >
+  <div *ngFor="let item of items " cdkDrag >
 <!-- app-item -->
-    <app-item
+    <app-item (updateDate)='changeDate($event)'
     [title]='item.title'
     [tag]='item.tag'
     [date]='item.date'

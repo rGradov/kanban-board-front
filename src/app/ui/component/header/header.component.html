@@ -1,0 +1,13 @@
+<div class="flex items-center flex-shrink-0 w-full h-16 px-10 bg-white bg-opacity-75">
+
+  <div class="ml-10">
+<ng-container *ngIf="!authService.logIn">
+  <a class="mx-2 text-sm font-semibold text-indigo-700">login</a>
+  <a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700" >register</a>
+</ng-container>
+<ng-container *ngIf="authService.logIn">
+  <a class="mx-2 text-sm font-semibold text-indigo-700" (click)="authService.logout()">logout</a>
+</ng-container>
+  </div>
+  
+</div>

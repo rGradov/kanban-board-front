@@ -21,6 +21,7 @@ export class ColumComponent implements OnInit, OnDestroy {
   openmenu = false;
   itemSub: Subscription;
   @Output() onDelete = new EventEmitter<string>();
+  @Output() onChangeCounter = new EventEmitter<number>();
   lastPosSub: Subscription;
   lastPos: string;
 
@@ -48,13 +49,18 @@ export class ColumComponent implements OnInit, OnDestroy {
     this.items = this.items.filter(item => item.id !== $event);
   }
   onInput($event): void {
-    console.log('work')
     this.items.push($event);
   }
   private lastPosition() {
     this.lastPosSub = this.itemService.getLastItemPos().subscribe(pos => {
       this.lastPos = pos.id
     })
+  }
+  changeDate($event): void {
+    const obj = this.items.find(item => item.id === $event.id);
+    obj.date = $event.date;
+    obj.title = $event.title;
+    obj.tag = $event.tag;
   }
 
   drop(event: CdkDragDrop<string[]>): void {
@@ -69,6 +75,8 @@ export class ColumComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex);
       this.itemService.TransferItem(this.id, event.container.data, event.currentIndex, this.lastPos).subscribe();
+
+
     }
   }
 

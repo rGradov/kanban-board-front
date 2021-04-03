@@ -5,6 +5,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 .mat-dialog-container {
   background: none;
   box-shadow: none;
@@ -12,4 +13,7 @@
 .cdk-drop-list {
   min-width: 200px;
   min-height: 200px;
+}
+.mat-form-field {
+  width: 200px;
 }

@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ColumnDialogComponent } from './form/column-dialog/column-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddItemButtonComponent } from './button/add-item/add-item.component';
+import { EditItemBtnComponent } from './button/edit-item/edit-item.component';
 
 
 
@@ -22,7 +23,8 @@ import { AddItemButtonComponent } from './button/add-item/add-item.component';
     DeleteComponent,
     AddColumnButtonComponent,
     ColumnDialogComponent,
-    AddItemButtonComponent
+    AddItemButtonComponent,
+    EditItemBtnComponent
 
   ],
   imports: [
@@ -38,7 +40,9 @@ import { AddItemButtonComponent } from './button/add-item/add-item.component';
     CounterComponent,
     FormComponent,
     AddColumnButtonComponent,
-    AddItemButtonComponent
+    AddItemButtonComponent,
+    EditItemBtnComponent
+
   ]
 })
 export class SharedModule { }

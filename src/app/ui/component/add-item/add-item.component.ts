@@ -17,6 +17,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
   id: string;
   CreateItemSub: Subscription;
   item: any;
+  error: string;
   @Output() onAdd = new EventEmitter<any>();
 
   constructor(
@@ -31,22 +32,29 @@ export class AddItemComponent implements OnInit, OnDestroy {
     this.lastPosSub.unsubscribe();
   }
   closeDialog(): void {
-    this.dialogRef.close('close');
+    this.dialogRef.close();
   }
   private init() {
     this.lastPosSub = this.itemService.getLastItemPos().subscribe(pos => {
-      this.lastPos = pos.id
-    })
+      if (pos) {
+        this.lastPos = pos.id
+      }
+    }, err => { console.log(err); })
 
   }
   onSubmit(): void {
     const title = this.title.value;
-    this.init();
+
+    if (!this.lastPos) {
+      this.lastPos = this.itemService.lastpos();
+    }
     this.CreateItemSub = this.itemService.createItem(this.lastPos, title, this.data.id)
       .pipe(tap((item) => {
         this.dialogRef.close(item);
       }
-      )).subscribe();
+      )).subscribe(elem => console.log(elem),
+        err => this.error = err,
+        () => console.log('HTTP request completed.'));
 
   }
 }

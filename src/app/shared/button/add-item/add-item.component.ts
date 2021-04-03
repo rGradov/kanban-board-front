@@ -19,7 +19,7 @@ export class AddItemButtonComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, { data: { id: this.id } });
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== 'close') {
+      if (result) {
         this.onAdd.emit(result);
       }
     })

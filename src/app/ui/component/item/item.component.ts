@@ -12,6 +12,7 @@ export class ItemComponent implements OnInit {
   @Input() tag: string;
   @Input() id: string;
   @Output() onDeleteItem = new EventEmitter<string>();
+  @Output() updateDate = new EventEmitter<any>();
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
@@ -20,6 +21,26 @@ export class ItemComponent implements OnInit {
     this.onDeleteItem.emit(this.id);
     this.itemService.deleteCurrentItem(this.id).subscribe();
 
+  }
+  changeDate($event) {
+    console.log($event)
+    if ($event.tag) {
+      this.tag = $event.tag;
+    }
+    if ($event.date) {
+      this.date = $event.date;
+
+    }
+    if ($event.title) {
+      this.title = $event.title;
+    }
+    const dateObj = {
+      id: this.id,
+      date: this.date,
+      title: this.title,
+      tag: this.tag
+    }
+    this.updateDate.emit(dateObj)
   }
 
 }

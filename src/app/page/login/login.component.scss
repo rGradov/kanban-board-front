@@ -1,5 +1,7 @@
-.mat-dialog-container {
-  background: none;
+.message {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
 }
 input.ng-touched.ng-invalid {
   border: solid red 2px;

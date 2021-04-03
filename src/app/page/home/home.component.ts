@@ -1,7 +1,9 @@
+import { AuthService } from './../../auth/auth.service';
 import { ColumnService } from './../../service/column.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,13 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
   columns: Array<any>;
   private columnSub: Subscription;
-  // add interface
-  constructor(private columnService: ColumnService) { }
+  constructor(private columnService: ColumnService,
+    public authService: AuthService,
+    private router: Router) { }
   ngOnInit(): void {
+    if (!this.authService.logIn) {
+      this.router.navigate(['/login']);
+    }
     this.init();
     this.columnService.addColumnSubject.subscribe(elem => this.columns.push(elem));
   }

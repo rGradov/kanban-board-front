@@ -1,5 +1,6 @@
+import { AuthInterceptor } from 'src/app/auth/auth.interceptor';
 import { AddItemComponent } from './ui/component/add-item/add-item.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ColumnDialogComponent } from './shared/form/column-dialog/column-dialog.component';
 import { NgModule } from '@angular/core';
@@ -10,14 +11,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './page/home/home.component';
 import { UiModule } from './ui/ui.module';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SharedModule } from './shared/shared.module';
+import { LoginComponent } from './page/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
+import { RegisterComponent } from './page/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   entryComponents: [ColumnDialogComponent, AddItemComponent],
   imports: [
@@ -30,8 +36,12 @@ import { SharedModule } from './shared/shared.module';
     DragDropModule,
     SharedModule,
     MatDialogModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { LexoRank } from 'lexorank';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,15 @@ export class ColumnService {
   constructor(private http: HttpClient) { }
 
   getColumData(): Observable<any> {
-    return this.http.get<any>(`/api/columns`);
+    return this.http.get<any>(`/api/columns`).pipe(map(
+      event => event.sort((a, b) => {
+        if (a.pos > b.pos) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+    ));
   }
   getItemData(id: string): Observable<any> {
     return this.http.get<any>(`/api/items/${id}`);
@@ -46,6 +55,10 @@ export class ColumnService {
       currentPos = LexoRank.parse(data[currentId - 1].pos).genNext().toString();
       return this.http.put(`/api/columns/${id}`, { pos: currentPos });
     }
+  }
+  lastpos(): string {
+    const str = LexoRank.middle().toString();
+    return str;
   }
 }
 

@@ -15,6 +15,8 @@ export class ColumnDialogComponent implements OnInit, OnDestroy {
   lastPos: any;
   lastPosSub: Subscription;
   CreateColumnSub: Subscription;
+  error: string;
+  elem: any;
 
   constructor(public dialogRef: MatDialogRef<ColumnDialogComponent>,
     private columnService: ColumnService
@@ -23,11 +25,19 @@ export class ColumnDialogComponent implements OnInit, OnDestroy {
     this.init();
   }
   ngOnDestroy(): void {
-    this.lastPosSub.unsubscribe();
-    this.CreateColumnSub.unsubscribe();
+    if (this.elem) {
+      this.CreateColumnSub.unsubscribe();
+    }
+    if (this.lastPos) {
+      this.lastPosSub.unsubscribe();
+    }
   }
   private init() {
-    this.lastPosSub = this.columnService.getLastColumnPos().subscribe(pos => this.lastPos = pos.id)
+    this.lastPosSub = this.columnService.getLastColumnPos().subscribe(pos => {
+      if (pos) {
+        this.lastPos = pos.id
+      }
+    })
 
   }
   closeDialog(): void {
@@ -35,10 +45,15 @@ export class ColumnDialogComponent implements OnInit, OnDestroy {
   }
   onSubmit(): void {
     const title = this.title.value;
+    this.error = '';
     this.CreateColumnSub = this.columnService.createColumn(this.lastPos, title).pipe(tap(item => {
       this.columnService.addColumnSubject.next(item);
       this.dialogRef.close();
-    })).subscribe(elem => console.log(elem));
+    })).subscribe(
+      elem => this.elem = elem,
+      err => this.error = err,
+      () => console.log('HTTP request completed.')
+    );
   }
 
 }
